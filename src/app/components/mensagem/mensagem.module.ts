@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MensagemComponent } from './mensagem.component';
+
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MensagemComponent
+  ],
   imports: [
     CommonModule
   ]
 })
-export class AutenticacaoModule { }
+export class MensagemModule { }
