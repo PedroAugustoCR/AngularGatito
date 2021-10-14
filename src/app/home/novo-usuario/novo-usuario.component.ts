@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { NovoUsuarioService } from './novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
-import { NovoUsuario } from './novo-usuario';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NovoUsuario } from '../models/novo-usuario';
+import { minusculoValidator } from 'src/app/validators/minusculo.validator';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -9,13 +11,22 @@ import { NovoUsuario } from './novo-usuario';
 })
 export class NovoUsuarioComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  novoUsuarioForm!: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private NovoUsuarioService: NovoUsuarioService) { }
 
   ngOnInit(): void {
+    this.novoUsuarioForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      fullName: ['', [Validators.required, Validators.minLength(4)]],
+      userName: ['', [minusculoValidator]],
+      password: ['']
+    });
   }
 
-  cadastraNovoUsuario(novoUsuario: NovoUsuario) {
-    return this.http.post('http://localhost:3000/user/signup', novoUsuario);
+  cadastrar() {
+    const novoUsuario = this.novoUsuarioForm.getRawValue() as NovoUsuario;
+    console.log(novoUsuario);
   }
 
 }
