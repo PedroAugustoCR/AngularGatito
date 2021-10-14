@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NovoUsuario } from './novo-usuario';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NovoUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+  }
+
+  cadastraNovoUsuario(novoUsuario: NovoUsuario) {
+    return this.http.post('http://localhost:3000/user/signup', novoUsuario);
   }
 
 }
